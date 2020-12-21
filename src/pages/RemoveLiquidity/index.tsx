@@ -123,7 +123,7 @@ export default function RemoveLiquidity({
       { name: 'verifyingContract', type: 'address' }
     ]
     const domain = {
-      name: 'Uniswap V2',
+      name: 'Cyberswap V2',
       version: '1',
       chainId: chainId,
       verifyingContract: pair.liquidityToken.address
@@ -248,18 +248,20 @@ export default function RemoveLiquidity({
       // removeLiquidityETHWithPermit
       if (oneCurrencyIsETH) {
         methodNames = ['removeLiquidityETHWithPermit', 'removeLiquidityETHWithPermitSupportingFeeOnTransferTokens']
-        args = [
+        //methodNames = ['removeLiquidityETH', 'removeLiquidityETHSupportingFeeOnTransferTokens']
+	args = [
           currencyBIsETH ? tokenA.address : tokenB.address,
           liquidityAmount.raw.toString(),
           amountsMin[currencyBIsETH ? Field.CURRENCY_A : Field.CURRENCY_B].toString(),
           amountsMin[currencyBIsETH ? Field.CURRENCY_B : Field.CURRENCY_A].toString(),
           account,
           signatureData.deadline,
-          false,
-          signatureData.v,
-          signatureData.r,
-          signatureData.s
+	  false,
+	  signatureData.v,
+	  signatureData.r,
+	  signatureData.s
         ]
+        console.log("ARGS ", args)
       }
       // removeLiquidityETHWithPermit
       else {
